@@ -48,13 +48,18 @@
 |:--:|:--:|
 | k3b32q | https://aquerytool.com/aquerymain/index/?rurl=d499a5af-40ba-4e71-941c-57a46a582aaf& |
 
- - 회원가입 API 작성
+ - 회원가입 API 명세서 작성
+ - 회원가입 API 작성 및 서버 적용
+ - 80번호 포트 진입시 자동 9000포트 사용 적용
+ - 서버 백그라운드 실행 적용(nohup)
  
  <details>
 <summary> 🔎오류 해결</summary>
 <div markdown="1">
 
  > DDL 적용할 때 No database selected 에러 : `use <database명>;` 실행 후 테이블 생성하기 --- https://dalpeng2.tistory.com/84 
+ > 비밀번호 정규 표현식 비정상작동 : match에 보내주는 문자열 변수를 잘 못 지정하고 있었다.
+ > 인스턴스 내 .jar 파일 실행시 mysql 연결 오류 : 인스턴스 인바운드 규칙에 mysql 추가 & RDS 연결 설정을 통해 해결하였다!
 
 </div>
 </details>
