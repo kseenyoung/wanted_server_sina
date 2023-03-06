@@ -12,9 +12,9 @@ public class ValidationRegex {
     }
 
     public static boolean isRegexPassword(String target){
-        String regex = "^(?=.*[a-zA-Z])(?=.*[!@$%^*+=-])(?=.*[0-9]).{8,16}$";
-        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(regex);
+        String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{8,16}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(target);
         return matcher.find();
     }
 }
