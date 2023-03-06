@@ -57,9 +57,9 @@
 <summary> 🔎오류 해결</summary>
 <div markdown="1">
 
- > DDL 적용할 때 No database selected 에러 : `use <database명>;` 실행 후 테이블 생성하기 --- https://dalpeng2.tistory.com/84 
- > 비밀번호 정규 표현식 비정상작동 : match에 보내주는 문자열 변수를 잘 못 지정하고 있었다.
- > 인스턴스 내 .jar 파일 실행시 mysql 연결 오류 : 인스턴스 인바운드 규칙에 mysql 추가 & RDS 연결 설정을 통해 해결하였다!
+ > - DDL 적용할 때 No database selected 에러 : `use <database명>;` 실행 후 테이블 생성하기 --- https://dalpeng2.tistory.com/84 
+ > - 비밀번호 정규 표현식 비정상작동 : match에 보내주는 문자열 변수를 잘 못 지정하고 있었다.
+ > - 인스턴스 내 .jar 파일 실행시 mysql 연결 오류 : 인스턴스 인바운드 규칙에 mysql 추가 & RDS 연결 설정을 통해 해결하였다!
 
 </div>
 </details>
