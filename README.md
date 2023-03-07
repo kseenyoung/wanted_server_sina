@@ -3,15 +3,18 @@
 | :--: | :--:  |
 |3.36.94.149 | <https://prod.wanted-a.online> |
 
+[📜API 명세서](https://kwackr-my.sharepoint.com/:x:/g/personal/l990115l_kw_ac_kr/ETZyYKG_OrdEmI-8TL7TgpkBPpAcq5KnrnZVjMG8XcJIKA?e=vZXmj3)  
+[📝ERD 설계](https://aquerytool.com/aquerymain/index/?rurl=d499a5af-40ba-4e71-941c-57a46a582aaf&) Password : k3b32q
+
 
 <br>
 
 # 🌄라이징 테스트
 기간 : ***3/4(토) ~ 3/17(금)***
 ## 서버 일정
-| 3/4(토) | 3/5(일) | 3/6(월) | 3/7(화) |
-|:--:|:--:|:--:|:--:|
-| 라이징테스트 OT 및 기획서 작성 | - | 위클리 스크럼 | 1차 피드백 |
+| 3/4(토) | 3/5(일) | 3/6(월) | 3/7(화) | 3/8(수) |
+|:--:|:--:|:--:|:--:|:--:|
+| 라이징테스트 OT 및<br> 기획서 작성 | - | - | 위클리 스크럼 | 1차 피드백 |
 
 <br>
 
@@ -43,11 +46,6 @@
 
 ### 3/6(월)
  - ERD 설계(50%)
- 
-|PW | URL|
-|:--:|:--:|
-| k3b32q | https://aquerytool.com/aquerymain/index/?rurl=d499a5af-40ba-4e71-941c-57a46a582aaf& |
-
  - 회원가입 API 명세서 작성
  - 회원가입 API 작성 및 서버 적용
  - 80번호 포트 진입시 자동 9000포트 사용 적용
@@ -60,6 +58,22 @@
  > - DDL 적용할 때 No database selected 에러 : `use <database명>;` 실행 후 테이블 생성하기 --- https://dalpeng2.tistory.com/84 
  > - 비밀번호 정규 표현식 비정상작동 : match에 보내주는 문자열 변수를 잘 못 지정하고 있었다.
  > - 인스턴스 내 .jar 파일 실행시 mysql 연결 오류 : 인스턴스 인바운드 규칙에 mysql 추가 & RDS 연결 설정을 통해 해결하였다!
+
+</div>
+</details>
+
+ 
+ <br>
+
+### 3/7(화)
+ - ERD 설계(80%)
+ - 전체/ 특정 회원 조회 API 명세서 작성
+ 
+ <details>
+<summary> 🔎오류 해결</summary>
+<div markdown="1">
+
+ > - 
 
 </div>
 </details>
