@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.dao.EmptyResultDataAccessException;
+
 
 import java.util.List;
 
@@ -31,10 +33,10 @@ public class UserProvider {
         this.jwtService = jwtService;
     }
 
-    public List<GetUserRes> getUsers() throws BaseException{
+    public List<User> getUsers() throws BaseException{
         try{
-            List<GetUserRes> getUserRes = userDao.getUsers();
-            return getUserRes;
+            List<User> users = userDao.getUsers();
+            return users;
         }
         catch (Exception exception) {
             logger.error("App - getUserRes Provider Error", exception);
@@ -53,11 +55,15 @@ public class UserProvider {
     }
 
 
-    public GetUserRes getUser(int userIdx) throws BaseException {
+    public User getUser(int id) throws BaseException, EmptyResultDataAccessException {
         try {
-            GetUserRes getUserRes = userDao.getUser(userIdx);
-            return getUserRes;
-        } catch (Exception exception) {
+            User user = userDao.getUser(id);
+            return user;
+        } catch (EmptyResultDataAccessException exception){
+            logger.error("not match id", exception);
+            throw new BaseException(RESULT_ACTUAL_ZERO);
+        } 
+        catch (Exception exception) {
             logger.error("App - getUser Provider Error", exception);
             throw new BaseException(DATABASE_ERROR);
         }
@@ -76,6 +82,7 @@ public class UserProvider {
         try {
             User user = userDao.getPwd(postLoginReq);
 
+            //password 복호화
             String encryptPwd;
             try {
                 encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());
@@ -84,8 +91,9 @@ public class UserProvider {
                 throw new BaseException(PASSWORD_DECRYPTION_ERROR);
             }
 
+            // 비밀번호 일치 확인 & jwt 발급
             if(user.getPassword().equals(encryptPwd)){
-                int userIdx = user.getUserIdx();
+                int userIdx = user.getID();
                 String jwt = jwtService.createJwt(userIdx);
                 return new PostLoginRes(userIdx,jwt);
             }

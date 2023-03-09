@@ -19,15 +19,18 @@ public class UserDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<GetUserRes> getUsers(){
-        String getUsersQuery = "select * from UserInfo";
+    public List<User> getUsers(){
+        String getUsersQuery = "select * from User";
         return this.jdbcTemplate.query(getUsersQuery,
-                (rs,rowNum) -> new GetUserRes(
-                        rs.getInt("userIdx"),
-                        rs.getString("userName"),
-                        rs.getString("ID"),
-                        rs.getString("Email"),
-                        rs.getString("password"))
+                (rs,rowNum) -> new User(
+                        rs.getInt("Id"),
+                        rs.getString("Name"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("phoneNational"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("imgUrl"),
+                        rs.getInt("marketingAgreement"))
                 );
     }
 
@@ -44,16 +47,20 @@ public class UserDao {
                 getUsersByEmailParams);
     }
 
-    public GetUserRes getUser(int userIdx){
-        String getUserQuery = "select * from UserInfo where userIdx = ?";
-        int getUserParams = userIdx;
+    public User getUser(int id){
+        String getUserQuery = "select * from User where id = ? and status = 'ACTIVE'";
+        int getUserParams = id;
+
         return this.jdbcTemplate.queryForObject(getUserQuery,
-                (rs, rowNum) -> new GetUserRes(
-                        rs.getInt("userIdx"),
-                        rs.getString("userName"),
-                        rs.getString("ID"),
-                        rs.getString("Email"),
-                        rs.getString("password")),
+                (rs, rowNum) -> new User(
+                    rs.getInt("Id"),
+                    rs.getString("Name"),
+                    rs.getString("password"),
+                    rs.getString("email"),
+                    rs.getString("phoneNational"),
+                    rs.getString("phoneNumber"),
+                    rs.getString("imgUrl"),
+                    rs.getInt("marketingAgreement")),
                 getUserParams);
     }
     
@@ -84,17 +91,19 @@ public class UserDao {
     }
 
     public User getPwd(PostLoginReq postLoginReq){
-        String getPwdQuery = "select userIdx, password,email,userName,ID from UserInfo where ID = ?";
-        String getPwdParams = postLoginReq.getId();
+        String getPwdQuery = "select password, email, name, ID, phoneNational, phoneNumber, imgUrl, marketingAgreement from User where email = ? and satus = 'ACTIVE'";
+        String getPwdParams = postLoginReq.getEmail();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
                 (rs,rowNum)-> new User(
-                        rs.getInt("userIdx"),
-                        rs.getString("ID"),
-                        rs.getString("userName"),
+                        rs.getInt("ID"),
+                        rs.getString("Name"),
                         rs.getString("password"),
-                        rs.getString("email")
-                ),
+                        rs.getString("email"),
+                        rs.getString("phoneNational"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("imgUrl"),
+                        rs.getInt("marketingAgreement")),
                 getPwdParams
                 );
 

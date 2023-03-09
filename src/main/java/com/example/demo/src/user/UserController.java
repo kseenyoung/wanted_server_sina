@@ -9,6 +9,7 @@ import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -45,16 +46,21 @@ public class UserController {
      */
     //Query String
     @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/app/users
-    public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String Email) {
+    @GetMapping("") // (GET) 127.0.0.1:9000/users
+    public BaseResponse<List<User>> getUsers(@RequestParam(required = false) String email) {
         try{
-            if(Email == null){
-                List<GetUserRes> getUsersRes = userProvider.getUsers();
-                return new BaseResponse<>(getUsersRes);
-            }
-            // Get Users
-            List<GetUserRes> getUsersRes = userProvider.getUsersByEmail(Email);
-            return new BaseResponse<>(getUsersRes);
+            // 특정 유저 조회
+            // if(strId != null){
+            //         try{
+            //             List<User> user = Arrays.asList(userProvider.getUser(id));
+            //             return new BaseResponse<>(user);
+            //         } catch(BaseException exception){
+            //             return new BaseResponse<>((exception.getStatus()));
+            //         }
+            //     }
+            // Get All
+                List<User> users = userProvider.getUsers();
+                return new BaseResponse<>(users);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -62,17 +68,17 @@ public class UserController {
 
     /**
      * 회원 1명 조회 API
-     * [GET] /users/:userIdx
+     * [GET] /users/:id
      * @return BaseResponse<GetUserRes>
      */
     // Path-variable
     @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
-    public BaseResponse<GetUserRes> getUser(@PathVariable("userIdx") int userIdx) {
+    @GetMapping("/{id}") // (GET) 127.0.0.1:9000/ausers/:id
+    public BaseResponse<User> getUser(@PathVariable("id") int id) {
         // Get Users
         try{
-            GetUserRes getUserRes = userProvider.getUser(userIdx);
-            return new BaseResponse<>(getUserRes);
+            User user = userProvider.getUser(id);
+            return new BaseResponse<>(user);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -134,6 +140,7 @@ public class UserController {
         }
     }
 
+
     /**
      * 유저정보변경 API
      * [PATCH] /users/:userIdx
@@ -150,7 +157,7 @@ public class UserController {
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             //같다면 유저네임 변경
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getUserName());
+            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getName());
             userService.modifyUserName(patchUserReq);
 
             String result = "";
