@@ -113,7 +113,31 @@
 <div markdown="1">
 
 > 1. 새롭게 작성한 코드를 서버에서 실행할 때 "Web server failed to start. Port 8080 was aleady in use"
->    - nohup으로 백그라운드 실행되고 있던 서버가 있어서 뜬 오류
+>    - nohup으로 백그라운드 실행되고 있던 서버가 있어서 뜬 오류. --- https://zincod.tistory.com/16
+>       1. `sudo lsof -i :<port 번호>` 명령으로 해당 포트에서 실행되는 프로세스 확인
+>       2. `sudo kill -9 <pid>` 명령으로 해당하는 프로세스 종료
+>       3. 새롭게 시작하려는 .jar 파일 실행 
+</div>
+</details>
+
+ <br>
+
+### 3/9(목)
+ - ERD 직군(EMPLOYMENT) 테이블 추가
+ - 이메일 확인 API 작성 및 서버 반영
+ - 로그인 API 작성 및 서버 반영
+ 
+<details>
+<summary> 🔎오류 해결</summary>
+<div markdown="1">
+
+> 1. Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'wantedDB' defined in class path resource
+>    - RDS연결이 막혀있거나 제대로 동작하지 못해서 발생하는 오류이다. 집 컴퓨터로 항상 진행하다가 카페에서 실행했더니 발생한 것으로, RDS의 인바운드 규칙을 확장 시킴으로 해결!
+>    - 참고 : https://velog.io/@yhg3146/java-Spring-%EC%98%A4%EB%A5%98
+> 2. Required String parameter 'email' is not present 오류
+>    - email 확인 API 작성중 발생한 에러. pathvariable로 작성했는데 어노테이션을 @RequestParm 으로 해놓아서 생긴 문제였다. @PathVariable 로 변경하여서 해결
+>    - 참고 : https://velog.io/@tkaqhcjstk/spring-Required-String-parameter-%EC%9D%B8%EC%9E%90-is-not-present-%EC%98%A4%EB%A5%98%ED%95%B4%EA%B2%B0
 
 </div>
 </details>
+
