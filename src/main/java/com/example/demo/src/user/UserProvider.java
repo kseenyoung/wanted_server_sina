@@ -72,6 +72,9 @@ public class UserProvider {
     public int checkEmail(String email) throws BaseException{
         try{
             return userDao.checkEmail(email);
+        } catch (EmptyResultDataAccessException exception){
+        logger.error("not match id", exception);
+            throw new BaseException(RESULT_ACTUAL_ZERO);
         } catch (Exception exception){
             logger.error("App - checkEmail Provider Error", exception);
             throw new BaseException(DATABASE_ERROR);
@@ -80,6 +83,7 @@ public class UserProvider {
 
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException {
         try {
+            //입력받은 이메일에 해당하는 유저 정보
             User user = userDao.getPwd(postLoginReq);
 
             //password 복호화

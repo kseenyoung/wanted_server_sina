@@ -73,7 +73,7 @@ public class UserController {
      */
     // Path-variable
     @ResponseBody
-    @GetMapping("/{id}") // (GET) 127.0.0.1:9000/ausers/:id
+    @GetMapping("/{id}") // (GET) 127.0.0.1:9000/users/:id
     public BaseResponse<User> getUser(@PathVariable("id") int id) {
         // Get Users
         try{
@@ -98,7 +98,8 @@ public class UserController {
         if(postUserReq.getEmail() == null){
             return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
         }
-        // password validation
+        // password validationvalidation
+        //        if
         if(postUserReq.getPassword() == null){
             return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
         }
@@ -122,6 +123,37 @@ public class UserController {
         }
     }
 
+
+    /**
+     * 이메일 확인 API
+     * [POST] /users/:email
+     * @return BaseResponse<PostLoginRes>
+     */
+    @ResponseBody
+    @PostMapping("{email}")
+    public BaseResponse<String> logIn(@PathVariable String email) throws BaseException {
+        // email validation
+        if (email == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
+        }
+        //이메일 정규표현
+        if(!isRegexEmail(email)){
+            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
+        }
+        try {
+            int result = userProvider.checkEmail(email);
+            if (result == 0){
+                return new BaseResponse<>("존재하지 않는 이메일입니다. 회원가입 API 실행해주세요.");
+            }
+            else
+                return new BaseResponse<>(POST_USERS_EXISTS_EMAIL);
+
+        }catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+
     /**
      * 로그인 API
      * [POST] /users/logIn
@@ -130,9 +162,17 @@ public class UserController {
     @ResponseBody
     @PostMapping("/logIn")
     public BaseResponse<PostLoginRes> logIn(@RequestBody PostLoginReq postLoginReq){
+        // TODO: 로그인 값들에 대한 형식적인 validatin 처리해주셔야합니다!
+        // TODO: 유저의 status ex) 비활성화된 유저, 탈퇴한 유저 등을 관리해주고 있다면 해당 부분에 대한 validation 처리도 해주셔야합니다.
+        // email validation
+        if (postLoginReq.getEmail() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
+        }
+        // password validations
+        if (postLoginReq.getPassword() == null){
+            return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
+        }
         try{
-            // TODO: 로그인 값들에 대한 형식적인 validatin 처리해주셔야합니다!
-            // TODO: 유저의 status ex) 비활성화된 유저, 탈퇴한 유저 등을 관리해주고 있다면 해당 부분에 대한 validation 처리도 해주셔야합니다.
             PostLoginRes postLoginRes = userProvider.logIn(postLoginReq);
             return new BaseResponse<>(postLoginRes);
         } catch (BaseException exception){
