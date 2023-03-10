@@ -35,6 +35,10 @@ public enum BaseResponseStatus {
 
     POST_USERS_INVALID_PASSWORD(false, 2020, "비밀번호 형식을 확인해주세요."),
 
+    // [PATCH] /users
+    PATCH_USERS_EMPTY_OLDPASSWORD(false, 2030, "현재 비밀번호를 입력해주세요."),
+    PATCH_USERS_EMPTY_NEWPASSWORD(false, 2031, "변경할 비밀번호를 입력해주세요."),
+
 
     /**
      * 3000 : Response 오류

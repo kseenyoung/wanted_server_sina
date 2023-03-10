@@ -111,9 +111,17 @@ public class UserDao {
 
 
     public int modifyUserPassword(PatchUserPasswordReq patchUserPasswordReq) {
-        String modifyUserNameQuery = "update User set password = ? where id = ? ";
-        Object[] modifyUserNameParams = new Object[]{patchUserPasswordReq.getNewPassword(), patchUserPasswordReq.getId()};
+        String modifyUserPasswordQuery = "update User set password = ? where id = ?";
+        Object[] modifyUserPasswordParams = new Object[]{patchUserPasswordReq.getNewPassword(), patchUserPasswordReq.getId()};
 
-        return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
+        return this.jdbcTemplate.update(modifyUserPasswordQuery, modifyUserPasswordParams);
     }
+
+    // public int checkPassword(PatchUserPasswordReq patchUserPasswordReq) {
+    //     String checkPasswordQuery = "select exists(select password from User where password = ? and id = ?)";
+    //     String checkPasswordParams = new Object[]{patchUserPasswordReq.getOldPassword(), patchUserPasswordReq.getId()};
+    //     return this.jdbcTemplate.queryForObject(checkPasswordQuery,
+    //             int.class,
+    //             checkPasswordParams);
+    // }
 }

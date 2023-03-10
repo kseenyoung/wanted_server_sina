@@ -213,8 +213,25 @@ public class UserController {
      * @return BaseResponse<String>
      */
     @ResponseBody
-    @PatchMapping("/{id}/password")
+    @PatchMapping("/{id}/passwords")
     public BaseResponse<String> modifyUserPassword(@PathVariable("id") int id, @RequestBody PatchUserPasswordReq patchUserPasswordReq){
+        if (patchUserPasswordReq.getOldPassword() == null){
+            return new BaseResponse<>(PATCH_USERS_EMPTY_OLDPASSWORD);
+        }
+        // else{
+        //     int result = userProvider.checkPassword(patchUserPasswordReq);
+        //     if (result == 0){
+        //         return new BaseResponse<>("존재하지 않는 이메일입니다. 회원가입 API 실행해주세요.");
+        //     }
+        // }
+        if (patchUserPasswordReq.getNewPassword() == null){
+            return new BaseResponse<>(PATCH_USERS_EMPTY_NEWPASSWORD);
+        }
+        //비밀번호 정규표현
+        if(!isRegexPassword(patchUserPasswordReq.getNewPassword())){
+            return new BaseResponse<>(POST_USERS_INVALID_PASSWORD);
+        }
+
         try {
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();

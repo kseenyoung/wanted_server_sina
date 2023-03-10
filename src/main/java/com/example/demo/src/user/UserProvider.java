@@ -82,32 +82,45 @@ public class UserProvider {
         }
     }
 
+    // public int checkPassword(PatchUserPasswordReq patchUserPasswordReq) throws BaseException{
+    //     try{
+    //         return userDao.checkPassword(PatchUserPasswordReq patchUserPasswordReq);
+    //     } catch (EmptyResultDataAccessException exception){
+    //     logger.error("not match id", exception);
+    //         throw new BaseException(RESULT_ACTUAL_ZERO);
+    //     } catch (Exception exception){
+    //         logger.error("App - checkEmail Provider Error", exception);
+    //         throw new BaseException(DATABASE_ERROR);
+    //     }
+    // }
+
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException {
-         try {
-            //입력받은 이메일에 해당하는 유저 정보
-             User user = userDao.getPwd(postLoginReq);
-             //System.out.println("-------" + user.getEmail());
+        try {
+           //입력받은 이메일에 해당하는 유저 정보
+            User user = userDao.getPwd(postLoginReq);
+            //System.out.println("-------" + user.getEmail());
 
-            //password 복호화
-            String encryptPwd;
-            try {
-                encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());
-            } catch (Exception exception) {
-                logger.error("App - logIn Provider Encrypt Error", exception);
-                throw new BaseException(PASSWORD_DECRYPTION_ERROR);
-            }
+           //password 복호화
+           String encryptPwd;
+           try {
+               encryptPwd = new SHA256().encrypt(postLoginReq.getPassword());
+           } catch (Exception exception) {
+               logger.error("App - logIn Provider Encrypt Error", exception);
+               throw new BaseException(PASSWORD_DECRYPTION_ERROR);
+           }
 
-            // 비밀번호 일치 확인 & jwt 발급
-             if (user.getPassword().equals(encryptPwd)) {
-                 int userIdx = user.getID();
-                 String jwt = jwtService.createJwt(userIdx);
-                 return new PostLoginRes(userIdx, jwt);
-             }
-             System.out.println("-------is this exe???");
-             throw new BaseException(FAILED_TO_LOGIN);
-        } catch (Exception exception) {
-            logger.error("App - logIn Provider Error", exception);
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+               // 비밀번호 일치 확인 & jwt 발급
+           if (user.getPassword().equals(encryptPwd)) {
+               int userIdx = user.getID();
+               String jwt = jwtService.createJwt(userIdx);
+               return new PostLoginRes(userIdx, jwt);
+           }
+           throw new BaseException(FAILED_TO_LOGIN);
+       } catch (BaseException exception) {
+           logger.error("App - logIn Provider Error", exception);
+           if(exception.getStatus().getCode() == 3014)
+               throw new BaseException(FAILED_TO_LOGIN);
+           throw new BaseException(DATABASE_ERROR);
+       }
+   }
 }

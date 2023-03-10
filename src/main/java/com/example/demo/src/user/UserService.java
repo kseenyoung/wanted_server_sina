@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
+import java.util.concurrent.CountDownLatch;
+
 // Service Create, Update, Delete 의 로직 처리
 @Service
 public class UserService {
@@ -71,14 +73,28 @@ public class UserService {
     }
 
     public void modifyUserPassword(PatchUserPasswordReq patchUserPasswordReq) throws BaseException {
+        int result = 0;
+        String pwd;
+
         try{
-            int result = userDao.modifyUserPassword(patchUserPasswordReq);
-            if(result == 0){
-                throw new BaseException(MODIFY_FAIL_PASSWORD);
-            }
+            //암호화
+            pwd = new SHA256().encrypt(patchUserPasswordReq.getNewPassword());
+            patchUserPasswordReq.setNewPassword(pwd);
+
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+
+        try{
+            result = userDao.modifyUserPassword(patchUserPasswordReq);
+
         } catch (Exception exception){
             logger.error("App - modifyUserPassword Service Error", exception);
             throw new BaseException(DATABASE_ERROR);
+        }
+        if(result == 0){
+                // System.out.println("------------------ is this error?");
+                throw new BaseException(MODIFY_FAIL_PASSWORD);
         }
     }
 }
