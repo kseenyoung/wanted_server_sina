@@ -141,3 +141,19 @@
 </div>
 </details>
 
+ <br>
+
+### 3/10(금)
+ - 비밀번호 변경 API 작성 및 서버 반영
+ 
+<details>
+<summary> 🔎오류 해결</summary>
+<div markdown="1">
+
+> 1. try-catch안에 if문을 이용해서 throw를 했더니 의도한 code가 아닌 가장 바깥쪽 throw가 실행 됨
+>    - try-catch를 제대로 이해하지 못한 점에서 발생한 문제였다. try 안쪽이 아닌 바깥쪽에서 예외처리를 해주고 안이 아닌 밖에 try문을 다시 작성해야되는 구조였다.
+>    - 참고 : https://sundrystore.tistory.com/14
+
+</div>
+</details>
+
