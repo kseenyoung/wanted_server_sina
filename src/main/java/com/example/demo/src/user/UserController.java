@@ -130,7 +130,7 @@ public class UserController {
      * @return BaseResponse<PostLoginRes>
      */
     @ResponseBody
-    @PostMapping("{email}")
+    @PostMapping("/{email}")
     public BaseResponse<String> logIn(@PathVariable String email) throws BaseException {
         // email validation
         if (email == null){
