@@ -110,4 +110,10 @@ public class UserDao {
     }
 
 
+    public int modifyUserPassword(PatchUserPasswordReq patchUserPasswordReq) {
+        String modifyUserNameQuery = "update User set password = ? where id = ? ";
+        Object[] modifyUserNameParams = new Object[]{patchUserPasswordReq.getNewPassword(), patchUserPasswordReq.getId()};
+
+        return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
+    }
 }
