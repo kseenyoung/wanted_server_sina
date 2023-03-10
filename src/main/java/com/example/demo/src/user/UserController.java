@@ -187,17 +187,17 @@ public class UserController {
      * @return BaseResponse<String>
      */
     @ResponseBody
-    @PatchMapping("/{userIdx}")
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
+    @PatchMapping("/{id}/username")
+    public BaseResponse<String> modifyUserName(@PathVariable("id") int id, @RequestBody User user){
         try {
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
             //userIdx와 접근한 유저가 같은지 확인
-            if(userIdx != userIdxByJwt){
+            if(id != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
             //같다면 유저네임 변경
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getName());
+            PatchUserReq patchUserReq = new PatchUserReq(id, user.getName());
             userService.modifyUserName(patchUserReq);
 
             String result = "";
@@ -207,5 +207,30 @@ public class UserController {
         }
     }
 
+    /**
+     * 유저정보변경 API
+     * [PATCH] /users/:id/password
+     * @return BaseResponse<String>
+     */
+    @ResponseBody
+    @PatchMapping("/{id}/password")
+    public BaseResponse<String> modifyUserPassword(@PathVariable("id") int id, @RequestBody PatchUserPasswordReq patchUserPasswordReq){
+        try {
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            //userIdx와 접근한 유저가 같은지 확인
+            if(id != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            //같다면 유저네임 변경
+//            int result = userService.modifyUserPassword(patchUserPasswordReq);
+            userService.modifyUserPassword(patchUserPasswordReq);
+
+            String result = "";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
 }
