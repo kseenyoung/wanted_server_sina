@@ -85,6 +85,25 @@ public class UserController {
 
     }
 
+    // /**
+    //  * 전체 이벤트 조회 API
+    //  * [GET] /users/events
+    //  * @return BaseResponse<GetUserRes>
+    //  */
+    // // Path-variable
+    // @ResponseBody
+    // @GetMapping("/events") // (GET) 127.0.0.1:9000/users/:id
+    // public BaseResponse<User> getUser(@PathVariable("id") int id) {
+    //     // Get Users
+    //     try{
+    //         User user = userProvider.getUser(id);
+    //         return new BaseResponse<>(user);
+    //     } catch(BaseException exception){
+    //         return new BaseResponse<>((exception.getStatus()));
+    //     }
+
+    // }
+
     /**
      * 회원가입 API
      * [POST] /users
@@ -179,6 +198,19 @@ public class UserController {
             return new BaseResponse<>(exception.getStatus());
         }
     }
+
+    /**
+     * 카카오 로그인 API
+     * [PATCH] /users/oauth
+     * @return BaseResponse<String>
+     */
+    @ResponseBody
+    @GetMapping("/oauth")
+    public void kakaoCallback(@RequestParam String code)throws BaseException{
+        // System.out.println(code);
+         String access_Token = UserService.getKaKaoAccessToken(code);  //static
+         UserService.createKakaoUser(access_Token);  //static
+     }
 
 
     /**

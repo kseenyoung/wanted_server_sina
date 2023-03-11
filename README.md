@@ -19,6 +19,11 @@
 <br>
 
 ## 서버 일지
+
+> 라이징 캠프 기간 발생한 오류 정리 : https://softsquared.notion.site/d158da0e4c2c4982bf80cb0f3d82a2ff?v=e099e01d7e1e4c13a52ff74596410955
+
+<br>
+
 ### 3/4(토)
  - 깃허브 템플릿 업로드
  - 기획서 작성
@@ -157,3 +162,21 @@
 </div>
 </details>
 
+ <br>
+
+### 3/11(토)
+ - 카카오 소셜 로그인 API 작성(90%) 및 서버 반영
+ - 클라이언트(웹)에게 서버 진행 상황 공지
+ 
+<details>
+<summary> 🔎오류 해결</summary>
+<div markdown="1">
+
+> 1. 카카오 소셜 로그인 구현을 위해서 필요한 'org.google.gson.' 모듈 import 오류
+>    - `build.gradle` 파일 dependencies에 'com.google.code.gson:gson:2.8.7' 넣어주어야 한다!
+> 2. 리드미 파일 작성 전에 commit을 진행해버림 (혹은 깜빡 잊고 commit같이 하지 못 한 파일)
+>    - `git add` 명령어로 해당 파일 스테이징
+>    - `git commit --amend -m "<commit message>"` 를 통해 해당 파일을 포함하도록 마지막 커밋 수정!
+
+</div>
+</details>
