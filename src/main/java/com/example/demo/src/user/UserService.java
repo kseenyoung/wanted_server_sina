@@ -104,7 +104,7 @@ public class UserService {
         }
     }
 
-    public static String getKaKaoAccessToken(String code) throws BaseException {
+    public String getKaKaoAccessToken(String code) throws BaseException {
         String access_Token="";
         String refresh_Token ="";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -159,7 +159,7 @@ public class UserService {
         return access_Token;
     }
 
-    public static void createKakaoUser(String token) throws BaseException {
+    public void createKakaoUser(String token) throws BaseException {
 
         String reqURL = "https://kapi.kakao.com/v2/user/me";
 
@@ -203,6 +203,16 @@ public class UserService {
             System.out.println("nickname : " + nickname);
 
             br.close();
+
+            //DB에 해당하는 email이 있는지 확인
+            if (userProvider.checkEmail(email) == 0){
+                //회원가입
+                PostUserReq postUserReq = new PostUserReq(nickname, email, "kakaoPw1!!", null, null, 0);
+                PostUserRes postUserRes = this.createUser(postUserReq);
+            }
+            //동일한 비밀번호로 로그인
+            PostLoginReq postLoginReq = new PostLoginReq(email, "kakaoPw1!!");
+            userProvider.logIn(postLoginReq);
 
         } catch (IOException e) {
             e.printStackTrace();

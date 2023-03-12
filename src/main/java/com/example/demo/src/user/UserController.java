@@ -123,9 +123,9 @@ public class UserController {
             return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
         }
         // PhoneNumber validation
-        if(postUserReq.getPhoneNumber() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_PHONENUMBER);
-        }
+        // if(postUserReq.getPhoneNumber() == null){
+        //     return new BaseResponse<>(POST_USERS_EMPTY_PHONENUMBER);
+        // }
         //이메일 정규표현
         if(!isRegexEmail(postUserReq.getEmail())){
             return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
@@ -206,10 +206,11 @@ public class UserController {
      */
     @ResponseBody
     @GetMapping("/oauth")
-    public void kakaoCallback(@RequestParam String code)throws BaseException{
+    public BaseResponse<PostLoginRes> kakaoCallback(@RequestParam String code)throws BaseException{
         // System.out.println(code);
-         String access_Token = UserService.getKaKaoAccessToken(code);  //static
-         UserService.createKakaoUser(access_Token);  //static
+         String access_Token = userService.getKaKaoAccessToken(code);
+         userService.createKakaoUser(access_Token);
+         return new BaseResponse<>(postLoginRes);
      }
 
 
