@@ -206,11 +206,11 @@ public class UserController {
      */
     @ResponseBody
     @GetMapping("/oauth")
-    public BaseResponse<PostLoginRes> kakaoCallback(@RequestParam String code)throws BaseException{
+    public void kakaoCallback(@RequestParam String code)throws BaseException{
         // System.out.println(code);
          String access_Token = userService.getKaKaoAccessToken(code);
          userService.createKakaoUser(access_Token);
-         return new BaseResponse<>(postLoginRes);
+        //  return new BaseResponse<>(postLoginRes);
      }
 
 
