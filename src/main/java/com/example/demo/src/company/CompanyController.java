@@ -54,5 +54,27 @@ public class CompanyController {
         }
 
     }
+
+        /**
+     * 회사 추가 API
+     * [POST] /companies
+     * @return BaseResponse<List<Event>>
+     */
+    @ResponseBody
+    @PostMapping("")
+    public BaseResponse<String> createEvent(@RequestBody Company req) throws BaseException {
+        if (req.getName() == null){
+            throw new BaseException(POST_EMPTY_COMPANY_NAME);
+        }
+        if (req.getExplanation() == null){
+            throw new BaseException(POST_EMPTY_COMPANY_EXPLANAION);
+        }
+        try{
+            companyService.createCompany(req);
+            return new BaseResponse<>("");
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
     
 }

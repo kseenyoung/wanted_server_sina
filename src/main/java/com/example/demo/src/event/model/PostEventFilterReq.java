@@ -11,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PostEventFilterReq {
     private String sort;
-    private String eventTypeCd;
-    private String eventTypeNm;
+    private String eventType;
+    // private String eventTypeNm;
     private String charge;
     private String[] EventTag;
 }

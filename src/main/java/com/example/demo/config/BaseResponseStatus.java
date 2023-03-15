@@ -39,6 +39,11 @@ public enum BaseResponseStatus {
     PATCH_USERS_EMPTY_OLDPASSWORD(false, 2030, "현재 비밀번호를 입력해주세요."),
     PATCH_USERS_EMPTY_NEWPASSWORD(false, 2031, "변경할 비밀번호를 입력해주세요."),
 
+    //[POST] /companies
+    POST_EMPTY_COMPANY_NAME(false, 2032, "회사명을 입력해주세요."),
+    POST_EMPTY_COMPANY_EXPLANAION(false, 2033, "회사 설명을 입력해주세요."),
+
+
 
     /**
      * 3000 : Response 오류
@@ -65,7 +70,9 @@ public enum BaseResponseStatus {
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
-    RESULT_ACTUAL_ZERO(false, 4020, "해당하는 id의 결과는 0건입니다.");
+    RESULT_ACTUAL_ZERO(false, 4020, "해당하는 id의 결과는 0건입니다."),
+    CREATE_FAIL_EVENT(false, 4021, "이벤트 생성에 실패하였습니다."),
+    CREATE_FAIL_COMPANY(false, 4022, "회사 정보 생성에 실패하였습니다.");
 
 
     // 5000 : 필요시 만들어서 쓰세요

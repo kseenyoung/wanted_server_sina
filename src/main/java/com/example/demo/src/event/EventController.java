@@ -73,11 +73,11 @@ public class EventController {
      * @return BaseResponse<List<Event>>
      */
     @ResponseBody
-    @PostMapping("/append")
+    @PostMapping("")
     public BaseResponse<String> createEvent(@RequestBody Event req) throws BaseException {
         try{
             eventService.createEvent(req);
-            return new BaseResponse<>("등록성공");
+            return new BaseResponse<>("");
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -113,6 +113,44 @@ public class EventController {
         try{
             List<GetEventTagRes> getComapnyTagRes = eventProvider.getEventTags();
             return new BaseResponse<>(getComapnyTagRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
+
+        /**
+     * 이벤트 갱신 API
+     * [PATCH] /events/:id
+     * @return BaseResponse<List<GetEventTagRes>>
+     */
+    // Path-variable
+    @ResponseBody
+    @PatchMapping("/{id}")
+    public BaseResponse<String> getEventTags(@PathVariable int id, @RequestBody Event req) throws BaseException {
+        // Get interest tags
+        try{
+            eventProvider.modifyEventsById(id, req);
+            return new BaseResponse<>("");
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
+
+        /**
+     * 특정 이벤트 삭제 API
+     * [PATCH] /events/:id
+     * @return BaseResponse<List<GetEventTagRes>>
+     */
+    // Path-variable
+    @ResponseBody
+    @PatchMapping("/{id}/status")
+    public BaseResponse<String> getEventTags(@PathVariable int id) throws BaseException {
+        // Get interest tags
+        try{
+            eventProvider.deleteEventsById(id);
+            return new BaseResponse<>("");
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

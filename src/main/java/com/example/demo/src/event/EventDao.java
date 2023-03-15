@@ -74,8 +74,8 @@ public class EventDao {
     public List<Event> getEventsByFilter(String tag, PostEventFilterReq req) {
         String getEventQuery = "select * from EVENT where status = 'ACTIVE' and EventTag like ? ";
         
-        if(!"ALL".equals(req.getEventTypeCd())){ //유형
-            getEventQuery += "and eventType = '"+req.getEventTypeNm()+"' ";
+        if(req.getEventType() != null){ //유형
+            getEventQuery += "and eventType = '"+req.getEventType()+"' ";
         }
 
         if("FREE".equals(req.getCharge())){ //유/무료
@@ -141,8 +141,8 @@ public class EventDao {
 	return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
     }
 
-    public int updateEvent(Event req){
-        String modifyEventQuery = "update EVENT set title = ?, eventType = ?, charge = ?, EventTag = ? eventStatus = ?, thumbnail = ?, author = ?, detail = ? startDate = ?, endDate = ? where id = ?";
+    public int updateEvent(int id, Event req){
+        String modifyEventQuery = "update EVENT set title = ?, eventType = ?, charge = ?, EventTag = ?, eventStatus = ?, thumbnail = ?, author = ?, detail = ?, startDate = ?, endDate = ? where id = ?";
         Object[] modifyEventParams = 
 		new Object[]{
 			req.getTitle(), 
@@ -155,7 +155,7 @@ public class EventDao {
 			req.getDetail(),
 			req.getStartDate(),
 			req.getEndDate(),
-            req.getId()
+            id
 			};
             return this.jdbcTemplate.update(modifyEventQuery,modifyEventParams);
     }

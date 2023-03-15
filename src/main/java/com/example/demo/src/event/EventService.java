@@ -46,7 +46,7 @@ public class EventService {
 			event.setCharge(req.getCharge());
             System.out.println(">>>>>>>>>>>>>>>>>>"+req.getEventTag());
 			event.setEventTag(req.getEventTag());
-			event.setEventStatus(req.getEventStatus());
+			event.setEventStatus("ON");
 			event.setThumbnail(req.getThumbnail());
 			event.setAuthor(req.getAuthor());
 			event.setDetail(req.getDetail());
@@ -54,11 +54,13 @@ public class EventService {
 			event.setEndDate(req.getEndDate());
 
 			int result = eventDao.createEvent(event);
-			if(result == 0) throw new BaseException(DATABASE_ERROR);
+			if(result == 0) throw new BaseException(CREATE_FAIL_EVENT);
 			
 		} catch(Exception exception){
 			logger.error("App - appendDevices Service Error", exception);
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
+
 }

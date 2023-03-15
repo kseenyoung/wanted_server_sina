@@ -69,5 +69,44 @@ public class EventProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public void modifyEventsById(int id, Event req) throws BaseException {
+        try{
+            Event event = new Event();
+			event.setTitle(req.getTitle());
+			event.setEventType(req.getEventType()); 
+			event.setCharge(req.getCharge());
+            System.out.println(">>>>>>>>>>>>>>>>>>"+req.getEventTag());
+			event.setEventTag(req.getEventTag());
+
+            String eventStatus = "ON";
+            if (req.getEventStatus() != null){
+                eventStatus = req.getEventStatus();
+            }
+
+			event.setEventStatus(eventStatus);
+			event.setThumbnail(req.getThumbnail());
+			event.setAuthor(req.getAuthor());
+			event.setDetail(req.getDetail());
+			event.setStartDate(req.getStartDate());
+			event.setEndDate(req.getEndDate());
+
+            eventDao.updateEvent(id, event);
+        }
+        catch (Exception exception) {
+            logger.error("App - modifyEventsById Provider Error", exception);
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void deleteEventsById(int id) throws BaseException {
+        try{
+            eventDao.deleteEvent(id);
+        }
+        catch (Exception exception) {
+            logger.error("App - modifyEventsById Provider Error", exception);
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
     
 }

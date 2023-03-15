@@ -27,5 +27,21 @@ public class CompanyDao {
                         rs.getString("tagName"))
                 );
     }
+
+    public int createCompany(Company company) {
+        String createCompanyQuery = "insert into COMPANY(name, explanation, totalEmployees, status) values(?,?,?,?)";
+        Object[] createCompanyParams = 
+		new Object[]{
+			company.getName(), 
+			company.getExplanation(),
+            company.getTotalEmployees(),
+			"ACTIVE"
+			};
+
+		this.jdbcTemplate.update(createCompanyQuery, createCompanyParams);
+
+		String lastInserIdQuery = "select last_insert_id()";
+	    return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+    }
     
 }
