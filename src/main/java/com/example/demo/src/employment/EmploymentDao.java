@@ -1,9 +1,7 @@
 package com.example.demo.src.employment;
 
 
-import com.example.demo.src.employment.model.*;
-
-import org.omg.PortableInterceptor.ACTIVE;
+import com.example.demo.src.employment.model.Employment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
