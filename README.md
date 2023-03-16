@@ -224,3 +224,20 @@
  - 회사 정보 생성 API 작성
  - 태그 별 필터링 된 이벤트 조회 API 수정
  - 카카오톡 소셜 로그인 API 수정
+
+   <br>
+
+### 3/16(목)
+ - 카카오톡 소셜 로그인 API 수정
+ - 프론트앤트 API 연결할 때 CORS 에러 수정
+ 
+<details>
+<summary> 🔎오류 해결</summary>
+<div markdown="1">
+
+> 1. CORS ERROR 발생
+>    - config 폴더에 WebConfig 파일에 http://localhost:3000과 http://localhost:3001 추가
+>    - 착각하여 https://wanted-a.online:3000 을 입력했다가 https://localhost:3000 입력했다가 다시 제대로 입력하였음
+
+</div>
+</details>

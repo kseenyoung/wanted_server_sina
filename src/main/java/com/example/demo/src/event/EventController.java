@@ -57,7 +57,7 @@ public class EventController {
      * @return BaseResponse<List<Event>>
      */
     @ResponseBody
-    @PostMapping("/{tags}")
+    @GetMapping("/{tags}")
     public BaseResponse<List<Event>> getEventsByFilter(@PathVariable String tags, @RequestBody PostEventFilterReq req) throws BaseException {
         try{
             List<Event> events = eventProvider.getEventsByFilter(tags,req);

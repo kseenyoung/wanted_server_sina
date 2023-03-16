@@ -64,10 +64,10 @@ public class CompanyController {
     @PostMapping("")
     public BaseResponse<String> createEvent(@RequestBody Company req) throws BaseException {
         if (req.getName() == null){
-            throw new BaseException(POST_EMPTY_COMPANY_NAME);
+            return new BaseResponse(POST_EMPTY_COMPANY_NAME);
         }
         if (req.getExplanation() == null){
-            throw new BaseException(POST_EMPTY_COMPANY_EXPLANAION);
+            return new BaseResponse(POST_EMPTY_COMPANY_EXPLANAION);
         }
         try{
             companyService.createCompany(req);

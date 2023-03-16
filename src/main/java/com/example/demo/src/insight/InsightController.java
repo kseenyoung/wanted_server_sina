@@ -17,7 +17,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.*;
 
 @RestController
-@RequestMapping("/insight")
+@RequestMapping("/insights")
 public class InsightController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,7 +37,7 @@ public class InsightController {
     
     /**
      * 태그 별 인사이트 조회 API
-     * [GET] /insight?tags=
+     * [GET] /insights?tags=
      * @return BaseResponse<GetUserRes>
      */
     // Path-variable

@@ -17,7 +17,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.*;
 
 @RestController
-@RequestMapping("/employment")
+@RequestMapping("/employments")
 public class EmploymentController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
