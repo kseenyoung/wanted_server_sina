@@ -228,8 +228,10 @@
    <br>
 
 ### 3/16(목)
- - 카카오톡 소셜 로그인 API 수정
+ - 카카오톡 소셜 로그인 API 마무리
+ - React로 작성된 코드로 소셜 로그인 API 확인
  - 프론트앤트 API 연결할 때 CORS 에러 수정
+
  
 <details>
 <summary> 🔎오류 해결</summary>
@@ -238,6 +240,8 @@
 > 1. CORS ERROR 발생
 >    - config 폴더에 WebConfig 파일에 http://localhost:3000과 http://localhost:3001 추가
 >    - 착각하여 https://wanted-a.online:3000 을 입력했다가 https://localhost:3000 입력했다가 다시 제대로 입력하였음
+> 2. React npm start 에러
+>    - node의 버전이 안정적이지 않아서 생긴 문제 : 버전 16으로 다운그래이드 후 실행하니 해결!
 
 </div>
 </details>

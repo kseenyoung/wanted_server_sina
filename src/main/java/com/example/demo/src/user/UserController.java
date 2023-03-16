@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,17 +201,51 @@ public class UserController {
     }
 
     /**
+     * SSO 로그인 API
+     * [POST] /users/ssologin
+     * @return BaseResponse<PostLoginRes>
+     */
+    @ResponseBody
+    @PostMapping("/sso-login")
+    public BaseResponse<PostLoginRes> ssoLogin(@RequestBody PostLoginReq postLoginReq){
+        //서비스쪽으로 넘겨서 처리해야댐
+        try{
+            if(1 == userProvider.checkEmail(postLoginReq.getEmail())){ //가입한유저
+                postLoginReq.setPassword("");
+                PostLoginRes postLoginRes = userProvider.logIn(postLoginReq);
+                return new BaseResponse<>(postLoginRes);
+            }else{ //새로가입
+                    PostUserReq postUserReq = new PostUserReq();
+                        postUserReq.setName(postLoginReq.getName()==null ? "kakaoUser" : postLoginReq.getName());
+                        postUserReq.setEmail(postLoginReq.getEmail()); //
+                        postUserReq.setPassword("");
+                        postUserReq.setPhoneNational("");
+                        postUserReq.setPhoneNumber("");
+                        postUserReq.setMarketingAgreement(0);
+                    PostUserRes postUserRes = userService.createUser(postUserReq);
+
+                    PostLoginRes postLoginRes = new PostLoginRes();
+                        postLoginRes.setId(postUserRes.getUserIdx());
+                        postLoginRes.setJwt(postUserRes.getJwt());
+                    return new BaseResponse<>(postLoginRes);
+            }
+        } catch (BaseException exception){
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    /**
      * 카카오 로그인 API
      * [PATCH] /users/oauth
      * @return BaseResponse<String>
      */
     @ResponseBody
     @GetMapping("/oauth")
-    public BaseResponse<PostLoginRes> kakaoCallback(@RequestParam String code)throws BaseException{
+    public void kakaoCallback(@RequestParam String code)throws BaseException{
         // System.out.println(code);
          String access_Token = userService.getKaKaoAccessToken(code);
-        PostLoginRes postLoginRes = userService.createKakaoUser(access_Token);
-        return new BaseResponse<>(postLoginRes);
+         userService.createKakaoUser(access_Token);
+        //  return new BaseResponse<>(postLoginRes);
      }
 
 
