@@ -12,17 +12,20 @@
 # 🌄라이징 테스트
 기간 : ***3/4(토) ~ 3/17(금)***
 ## 서버 일정
-| 3/4(토) | 3/5(일) | 3/6(월) | 3/7(화) | 3/8(수) | 3/9(목) | 3/10(금) |
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-| 라이징테스트 OT 및<br> 기획서 작성 | - | - | 위클리 스크럼 | 1차 피드백 | - | 라이징캠프<br> 2주차 시작 |
+| 3/4(토) | 3/5(일) | 3/6(월) | 3/7(화) | 3/8(수) | 3/9(목) | 3/10(금) | 3/14(화) | 3/17(금) |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:| :--: | :--: |
+| 라이징테스트 OT 및<br> 기획서 작성 | - | - | 위클리 스크럼 | 1차 피드백 | - | 라이징캠프<br> 2주차 시작 | 2차 피드백 | 라이징 테스트 마감 |
 
 <br>
 
 ## 서버 일지
 
-> 라이징 캠프 기간 발생한 오류 정리 : https://softsquared.notion.site/d158da0e4c2c4982bf80cb0f3d82a2ff?v=e099e01d7e1e4c13a52ff74596410955
+❗️ 라이징 캠프 기간 발생한 오류 정리 : 
+<a href="https://softsquared.notion.site/d158da0e4c2c4982bf80cb0f3d82a2ff?v=e099e01d7e1e4c13a52ff74596410955"><img src="https://img.shields.io/badge/오류정리-ffffff?style=flat-square&logo=notion&logoColor=black"/></a>
 
-<br>
+ <details>
+<summary> 🎞️ 요일 별 서버 일지</summary>
+<div markdown="1">
 
 ### 3/4(토)
  - 깃허브 템플릿 업로드
@@ -245,3 +248,79 @@
 
 </div>
 </details>
+
+
+</div>
+</details>
+
+
+<br>
+
+
+# 사용 방법
+
+## 설치/배포 환경
+**설치**
+- 최신 git
+- 최신 java
+- window 10 or mac m2
+- visual studio or IntelliJ
+
+**배포**
+- AWS ec2
+- AWS route53
+- AWS RDS
+- Nginx
+- winSCP or Filezilla
+- Godeddy
+- DataGrip
+
+<br>
+
+## 다운로드 및 실행
+
+1. cmd 또는 shell, terminal를 열고 다운 받을 폴더로 이동 후 clone 명령어로 다운
+
+```
+git clone https://github.com/mock-rc14/wanted_server_sina
+```
+
+2. 다운받은 코드를 IDE로 열어 gradlew 파일이 있는 폴더에서 터미널에 다음을 입력하여 빌드(OS에 맞게 선택하여 입력)
+```
+./gradlew clean build       #IOS
+./gradlew.bat clean build   #Window10
+```
+
+3. 빌드된 .jar 파일을 실행
+```
+java -jar ./build/libs/demo-0.0.1-SNAPSHOT.jar
+```
+터미널에 다음과 같이 9000포트가 열렸다는 내용을 확인했다면 내 컴퓨터가 서버로서 역할을 할 수 있게 되었다는 뜻이다.
+`http://localhost:9000` or `http://127.0.0.1:9000`을 사용하여 확인해볼 수 있다.
+<img width="1417" alt="image" src="https://user-images.githubusercontent.com/65147869/228405110-4b0f8530-2ee7-452d-b86e-5eb755ba2c80.png">
+
+## API 확인
+POSTMAN 등 api확인 프로그램을 활용하여 서버가 원하는 방식으로 작동하는지 확인할 수 있다.
+
+https://drive.google.com/file/d/1kjfSc7RBmbri3Ze4A91A_oCQK5VdqZpr/view
+
+
+<br>
+
+## AWS 배포
+- aws의 EC2(Ubuntu)에 해당 .jar 파일만 올려 해당 인스턴스를 서버로 활용할 수 있다. 
+- node.js는 인스턴스 내에서 빌드에 문제 없지만 spring은 인스턴스 내에서 빌드시 과부하가 걸려 골치 아파질 수 있으므로 주의
+- 인스턴스에 쉽게 접근하기 위해서 winSCP(windows)또는 filezilla(ios)를 이용하여 .jar 파일을 옮길 수 있다.
+- 9000포트에 대해 nginx 서버 설정을 해두어야 성공적으로 해당 인스턴스를 서버로 사용할 수 있는데, 자세한 사항은 [다음](https://softsquared.notion.site/SubDomain-Redirection-047d7c1f0b174377a87efe908f2de230) 링크 참고
+
+
+## RDS
+- 작성자 개인 RDS가 연결되어 있으므로 `build/resources/main/application.yml` 폴더를 열어서 다음에 알맞게 변경하여 사용하면 된다.
+![6B707B4F-00FB-4702-B576-128D39B04371_1_201_a](https://user-images.githubusercontent.com/65147869/228410271-d911b050-a328-47b2-b220-f602be715d20.jpeg)
+
+
+
+<br>
+
+---
+`해당 프로젝트에 사용된 템플릿의 저작권은 (주)소프트스퀘어드에 있습니다.`
