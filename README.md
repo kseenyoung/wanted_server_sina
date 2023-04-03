@@ -1,7 +1,9 @@
 # Wanted_a Server
 | ip | url |
 | :--: | :--:  |
-|3.36.94.149 | <https://prod.wanted-a.online> |
+|~~3.36.94.149~~ | ~~<https://prod.wanted-a.online>~~ |
+
+현재 서버 일시 중지 상태
 
 [📜API 명세서](https://kwackr-my.sharepoint.com/:x:/g/personal/l990115l_kw_ac_kr/ETZyYKG_OrdEmI-8TL7TgpkBPpAcq5KnrnZVjMG8XcJIKA?e=vZXmj3)  
 [📝ERD 설계](https://aquerytool.com/aquerymain/index/?rurl=d499a5af-40ba-4e71-941c-57a46a582aaf&) Password : k3b32q
