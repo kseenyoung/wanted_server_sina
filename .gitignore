@@ -2,3 +2,5 @@
 logs/
 build/
 .gradle/
+
+application-rds.yml

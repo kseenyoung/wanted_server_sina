@@ -7,8 +7,12 @@ spring:
 
   datasource:
     platform: mysql
-    url: jdbc:mysql://wanted.crafjd9zsqmm.ap-northeast-2.rds.amazonaws.com/wanted?autoReconnect=true # 변경해주세요
-    username: admin # 변경해주세요
-    password: Admin123!! # 변경해주세요
+    #url: jdbc:mysql://{RDS-EndPoint}/{Schema}?autoReconnect=true # 변경해주세요
+    #username: {id} # 변경해주세요
+    #password: {pw} # 변경해주세요
     driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8버전
     # driver-class-name: com.mysql.jdbc.Driver # mysql 5버전
+
+  # url, username, password 입력 후 해당 profiles 구간 전부 주석 처리 후 실행
+  profiles:  # 주석
+    active : rds #주석
